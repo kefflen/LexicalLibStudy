@@ -47,6 +47,6 @@ function prePopulateEditor() {
   // const paragraph = $createParagraphNode();
   // const text = $createTextNode('Populando o node com text node') 
   const codeNode = $createCodeNode('javascript')
-  codeNode.append($createCodeHighlightNode('const x = 2'))
+  // codeNode.append($createCodeHighlightNode('const x = 2'))
   root.append(codeNode)
 }
