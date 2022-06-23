@@ -1,7 +1,7 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $createParagraphNode, $createTextNode, $isParagraphNode, LexicalEditor, TextNode } from "lexical";
+import { $createParagraphNode, $createTextNode, $isParagraphNode, ElementNode, LexicalEditor, LexicalNode, TextNode } from "lexical";
 import { $createCodeNode, $createCodeHighlightNode } from '@lexical/code';
-import {CodeHighlightNode, CodeNode} from '@lexical/code'
+import { CodeHighlightNode, CodeNode } from '@lexical/code'
 
 import React, { useEffect } from "react";
 
@@ -32,17 +32,26 @@ function useExitTrigger(editor: LexicalEditor) {
     const removeTransform = editor.registerNodeTransform(CodeHighlightNode, node => {
       const content = node.getTextContent()
       if (content === 'exit') {
-        const parent = node.getParent()
-        node.remove()
-        let nextNode = parent?.getNextSibling()
-        if (!nextNode) {
-          const p = $createParagraphNode()
-          parent?.insertAfter(p)
-          nextNode = p
-        }
-        console.log(parent?.selectNext())
+        handleExit(node);
       }
     })
     return removeTransform
   }, [editor])
+
+  function handleExit(node: LexicalNode) {
+    const parent = node.getParent();
+    createNextNodeIfNot(parent);
+    node.remove();
+    parent?.selectNext();
+  
+    function createNextNodeIfNot(parent: ElementNode | null) {
+      let nextNode = parent?.getNextSibling();
+      if (!nextNode) {
+        const p = $createParagraphNode();
+        parent?.insertAfter(p);
+        nextNode = p;
+      }
+    }
+  }
 }
+
