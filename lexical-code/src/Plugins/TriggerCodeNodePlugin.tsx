@@ -1,5 +1,5 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $createParagraphNode, $createTextNode, LexicalEditor, TextNode } from "lexical";
+import { $createParagraphNode, $createTextNode, $isParagraphNode, LexicalEditor, TextNode } from "lexical";
 import { $createCodeNode, $createCodeHighlightNode } from '@lexical/code';
 import {CodeHighlightNode, CodeNode} from '@lexical/code'
 
@@ -29,17 +29,18 @@ function useTrigger(editor: LexicalEditor) {
 
 function useExitTrigger(editor: LexicalEditor) {
   useEffect(() => {
-    const removeTransform = editor.registerNodeTransform(CodeNode, node => {
+    const removeTransform = editor.registerNodeTransform(CodeHighlightNode, node => {
       const content = node.getTextContent()
-      console.log(content)
-      if (content.endsWith('exit')) {
+      if (content === 'exit') {
         const parent = node.getParent()
-        
-        const p = $createParagraphNode()
-        const text = $createTextNode('TextNode')
-        p.append(text)
-        parent?.append(p)
-        parent?.select()
+        node.remove()
+        let nextNode = parent?.getNextSibling()
+        if (!nextNode) {
+          const p = $createParagraphNode()
+          parent?.insertAfter(p)
+          nextNode = p
+        }
+        console.log(parent?.selectNext())
       }
     })
     return removeTransform

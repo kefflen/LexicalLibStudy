@@ -26,8 +26,6 @@ function onChange(editorState: EditorState) {
   editorState.read(() => {
     const root = $getRoot();
     const selection = $getSelection();
-
-    console.log(root, selection);
   })
 }
 
