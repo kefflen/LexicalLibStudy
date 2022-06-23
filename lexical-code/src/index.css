@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+[contenteditable="true"] {
+  padding: 0.5rem;
+}
+
 .PlaygroundEditorTheme__code {
   background-color: rgb(240, 242, 245);
   font-family: Menlo, Consolas, Monaco, monospace;
