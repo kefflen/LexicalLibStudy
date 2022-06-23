@@ -9,6 +9,7 @@ import {$createCodeNode, $createCodeHighlightNode} from '@lexical/code';
 
 import StyledEditor from "./components/StyledEditor"
 import playgroundTheme from './playgroundTheme';
+import TriggerCodeNodePlugin from './Plugins/TriggerCodeNodePlugin';
 
 const initialConfig = {
   namespace: 'code-editor',
@@ -29,11 +30,13 @@ function App() {
           <PlainTextPlugin contentEditable={<ContentEditable />}
             placeholder=''/>
           <CodeHighlightPlugin />
+          <TriggerCodeNodePlugin />
         </LexicalComposer>
       </StyledEditor>
     </div>
   )
 }
+
 
 export default App
 
