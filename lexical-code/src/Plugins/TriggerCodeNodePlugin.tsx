@@ -20,7 +20,11 @@ function useTrigger(editor: LexicalEditor) {
     const removeTransform = editor.registerNodeTransform(TextNode, node => {
       const content = node.getTextContent()
       if (content === "```js") {
-        node.replace($createCodeNode())
+        const parent = node.getParent()
+        const codeNode = $createCodeNode()
+        parent?.insertAfter(codeNode)
+        codeNode.selectStart()
+        node.remove()
       }
     })
     return removeTransform
@@ -46,10 +50,9 @@ function useExitTrigger(editor: LexicalEditor) {
   
     function createNextNodeIfNot(parent: ElementNode | null) {
       let nextNode = parent?.getNextSibling();
-      if (!nextNode) {
+      if (!nextNode || nextNode.getType() === 'code') {
         const p = $createParagraphNode();
         parent?.insertAfter(p);
-        nextNode = p;
       }
     }
   }
