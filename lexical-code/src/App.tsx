@@ -11,6 +11,7 @@ import {OnChangePlugin} from '@lexical/react/LexicalOnChangePlugin';
 import StyledEditor from "./components/StyledEditor"
 import playgroundTheme from './playgroundTheme';
 import TriggerCodeNodePlugin from './Plugins/TriggerCodeNodePlugin';
+import TreeViewPlugin from './Plugins/TreeViewPlugin';
 
 const initialConfig = {
   namespace: 'code-editor',
@@ -41,6 +42,7 @@ function App() {
           <CodeHighlightPlugin />
           <TriggerCodeNodePlugin />
           <OnChangePlugin onChange={onChange}/>
+          <TreeViewPlugin />
         </LexicalComposer>
       </StyledEditor>
     </div>
