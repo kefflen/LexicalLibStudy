@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@lexical/react": "^0.3.5",
+    "html2canvas": "^1.4.1",
     "install": "^0.13.0",
     "lexical": "^0.3.5",
     "npm": "^8.12.2",

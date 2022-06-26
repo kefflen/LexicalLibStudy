@@ -3,7 +3,7 @@ import { $createParagraphNode, $createTextNode, $isParagraphNode, ElementNode, L
 import { $createCodeNode, $createCodeHighlightNode } from '@lexical/code';
 import { CodeHighlightNode, CodeNode } from '@lexical/code'
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 
 const TriggerCodeNodePlugin: React.FC = () => {

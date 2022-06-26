@@ -12,6 +12,7 @@ import StyledEditor from "./components/StyledEditor"
 import playgroundTheme from './playgroundTheme';
 import TriggerCodeNodePlugin from './Plugins/TriggerCodeNodePlugin';
 import TreeViewPlugin from './Plugins/TreeViewPlugin';
+import PrintableArea from './components/PrintableArea';
 
 const initialConfig = {
   namespace: 'code-editor',
@@ -35,16 +36,18 @@ function App() {
 
   return (
     <div className="App">
-      <StyledEditor name="code-editor">
-        <LexicalComposer initialConfig={initialConfig}>
-          <PlainTextPlugin contentEditable={<ContentEditable />}
-            placeholder=''/>
-          <CodeHighlightPlugin />
-          <TriggerCodeNodePlugin />
-          <OnChangePlugin onChange={onChange}/>
-          <TreeViewPlugin />
-        </LexicalComposer>
-      </StyledEditor>
+      <PrintableArea>
+        <StyledEditor name="code-editor">
+          <LexicalComposer initialConfig={initialConfig}>
+            <PlainTextPlugin contentEditable={<ContentEditable />}
+              placeholder=''/>
+            <CodeHighlightPlugin />
+            <TriggerCodeNodePlugin />
+            <OnChangePlugin onChange={onChange}/>
+            <TreeViewPlugin />
+          </LexicalComposer>
+        </StyledEditor>
+      </PrintableArea>
     </div>
   )
 }
