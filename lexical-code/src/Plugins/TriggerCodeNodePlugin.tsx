@@ -1,13 +1,40 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $createParagraphNode, $createTextNode, $isParagraphNode, ElementNode, LexicalEditor, LexicalNode, TextNode } from "lexical";
+import { $createParagraphNode, $createTextNode, $getNodeByKey, $getSelection, $isParagraphNode, createCommand, ElementNode, LexicalEditor, LexicalNode, ParagraphNode, TextNode } from "lexical";
 import { $createCodeNode, $createCodeHighlightNode } from '@lexical/code';
 import { CodeHighlightNode, CodeNode } from '@lexical/code'
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
+const TRIGGER_CODE_COMMAND = createCommand()
 
 const TriggerCodeNodePlugin: React.FC = () => {
   const [editor] = useLexicalComposerContext()
+
+  window.addEventListener('keydown', e => {
+    if (e.key === ';' && e.ctrlKey) {
+      e.preventDefault()
+      editor.dispatchCommand(TRIGGER_CODE_COMMAND, null)
+    }
+  })
+
+  useEffect(() => {
+    const removeCommand = editor.registerCommand(TRIGGER_CODE_COMMAND, () => {
+      editor.update(() => {
+        const currentSelection = $getSelection()
+        if (!currentSelection) return true
+        const [firstNode, ..._] = currentSelection.getNodes()
+        
+        if ($isParagraphNode(firstNode)) {
+          firstNode.replace($createCodeNode())
+        }
+
+      })
+
+      return true
+    }, 1)
+    return removeCommand
+  }, [])
+
   useTrigger(editor)
   useExitTrigger(editor)
   return null

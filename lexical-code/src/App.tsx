@@ -28,6 +28,7 @@ function onChange(editorState: EditorState) {
   editorState.read(() => {
     const root = $getRoot();
     const selection = $getSelection();
+    console.log(root)
   })
 }
 
@@ -39,7 +40,7 @@ function App() {
       <PrintableArea>
         <StyledEditor name="code-editor">
           <LexicalComposer initialConfig={initialConfig}>
-            <RichTextPlugin contentEditable={<ContentEditable />}
+            <RichTextPlugin contentEditable={<ContentEditable  />}
               placeholder=''/>
             <CodeHighlightPlugin />
             <TriggerCodeNodePlugin />
