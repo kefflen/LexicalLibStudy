@@ -1,4 +1,4 @@
-import MarkdownEditor from './MarkdownEditor';
+import MarkdownEditor from './components/MarkdownEditor';
 
 function App() {
   return (
