@@ -1,7 +1,7 @@
-import { EditorConfig, LexicalNode, ParagraphNode } from 'lexical'
+import { EditorConfig, ElementNode, LexicalNode } from 'lexical'
 
 
-export default class MarkdownBlockNode extends ParagraphNode {
+export default class MarkdownBlockNode extends ElementNode {
 
   __isMarkdownActive: boolean
   constructor(isMarkdownActive: boolean, key: string|undefined) {
@@ -10,8 +10,8 @@ export default class MarkdownBlockNode extends ParagraphNode {
   }
 
   createDOM(config: EditorConfig): HTMLElement {
-    const dom = super.createDOM(config)
-    return dom
+    const element = document.createElement('div')
+    return element
   }
 
   static clone(node: MarkdownBlockNode): MarkdownBlockNode {
