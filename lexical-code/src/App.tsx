@@ -1,11 +1,11 @@
 import {LexicalComposer} from '@lexical/react/LexicalComposer'
-import {PlainTextPlugin} from '@lexical/react/LexicalPlainTextPlugin';
 import {ContentEditable} from '@lexical/react/LexicalContentEditable';
 import CodeHighlightPlugin from './Plugins/CodeHighlightPlugin';
 import {CodeHighlightNode, CodeNode} from '@lexical/code';
-import { $createParagraphNode, $createTextNode, $getRoot, $getSelection, EditorState, LexicalEditor } from 'lexical';
-import {$createCodeNode, $createCodeHighlightNode} from '@lexical/code';
+import { $getRoot, $getSelection, EditorState } from 'lexical';
+import {$createCodeNode} from '@lexical/code';
 import {OnChangePlugin} from '@lexical/react/LexicalOnChangePlugin';
+import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 
 
 import StyledEditor from "./components/StyledEditor"
@@ -39,7 +39,7 @@ function App() {
       <PrintableArea>
         <StyledEditor name="code-editor">
           <LexicalComposer initialConfig={initialConfig}>
-            <PlainTextPlugin contentEditable={<ContentEditable />}
+            <RichTextPlugin contentEditable={<ContentEditable />}
               placeholder=''/>
             <CodeHighlightPlugin />
             <TriggerCodeNodePlugin />
